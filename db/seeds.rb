@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+movie=Movie.find(5)
+book=Book.find(1)
+
+user=User.find(1)
+comments=Comment.find([1,2])
+
+Post.create([{user:user,reviewable:movie,comments:comments}])
+Post.create([{user:user,reviewable:book}])

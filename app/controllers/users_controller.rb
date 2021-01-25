@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
     def index
      users= User.all
-     render json:users
+     render json:users,include: [:posts]
     end
 
     def create
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
     def show
       user=  User.find_by(id:params[:id])
       if user
-      render json:user
+      render json:user,include:[:posts]
       else
         render json:{error:"User with id #{params[:id]} does not exist"},status:404
       end
