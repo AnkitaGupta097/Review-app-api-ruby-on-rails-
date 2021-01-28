@@ -32,7 +32,7 @@ class UsersController < ApplicationController
                  render json:user
               else   
                  render json:{errors:user.errors},status:400
-              end   
+            end   
         else
           render json:{error:"User with id #{params[:id]} does not exist"},status:404
         end

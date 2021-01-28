@@ -3,17 +3,24 @@ Rails.application.routes.draw do
   resources :users do
    resources :posts ,only: [:index]
   end
-
-  resources :posts do
-    resources :comments,only:[:index]
-  end
   
+  resources :posts ,only: [:index]
 
-  resources :movies, only: [:index,:show,:create,:destroy]
+  resources :movies, only: [:index,:show,:create,:destroy] do
+     resources :users do
+         resources :posts ,:shallow => true do
+          resources :comments
+         end
+    end
+  end
 
-  resources :books, only: [:index,:show,:create,:destroy]
-
-  resources :comments
+  resources :books, only: [:index,:show,:create,:destroy] do
+    resources :users do
+        resources :posts,:shallow => true  do
+          resources :comments
+         end
+   end
+ end
 
 
 end

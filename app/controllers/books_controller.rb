@@ -1,14 +1,14 @@
 class BooksController < ApplicationController
 
     def index
-        users= Book.all
-        render json:users,include:[:users,:posts]
-       end
+        books= Book.all
+        render json:books,include:[:posts]
+    end
 
        def show
         book=  Book.find_by(id:params[:id])
         if book
-        render json:book,include:[:users,:posts]
+        render json:book,include:[:posts]
         else
           render json:{error:"Book with id #{params[:id]} does not exist"},status:404
         end
@@ -34,6 +34,7 @@ class BooksController < ApplicationController
        end
     end 
 
+ private
 
     def book_params
         params.require(:book)  

@@ -2,13 +2,13 @@ class MoviesController < ApplicationController
 
        def index
         movies= Movie.all
-        render json:movies,include:[:users,:posts]
+        render json:movies,include:[:posts]
        end
 
        def show
         movie=  Movie.find_by(id:params[:id])
         if movie
-        render json:movie,include:[:users,:posts]
+        render json:movie,include:[:posts]
         else
           render json:{error:"Movie with id #{params[:id]} does not exist"},status:404
         end
@@ -22,21 +22,22 @@ class MoviesController < ApplicationController
             render json:{errors:movie.errors},status:400
          end
 
-    end
+      end
 
     def destroy
         movie=  Movie.find_by(id:params[:id])
-      if movie
-         destroyed_movie=movie.destroy
-          render json:destroyed_movie
+      if movie.destroy
+          render json:movie
       else
-        render json:{error:"Movie with id #{params[:id]} does not exist"},status:404
+        render json:{error:movie.errors},status:400
        end
     end 
 
-    def movie_params
+    private 
+
+   def movie_params
         params.require(:movie)  
         params.permit(:title,:director,:rating)
-     end
+   end
 
 end
