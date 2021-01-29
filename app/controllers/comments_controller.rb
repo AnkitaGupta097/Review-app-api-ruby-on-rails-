@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find_by(id: params[:id])
+    comment = Comment.find(params[:id])
     if comment.destroy
       render json: comment
     else
