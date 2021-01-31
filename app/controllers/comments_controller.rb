@@ -27,8 +27,7 @@ class CommentsController < ApplicationController
   def update
     comment = Comment.find_by(id: params[:id])
     if comment
-      is_updated_comment = comment.update(comments_params)
-      if is_updated_comment
+      if comment.update(comments_params)
         render json: comment
       else
         render json: { errors: comment.errors }, status: 400

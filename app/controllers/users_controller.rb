@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    user = User.find_by(id: params[:id])
+    user = User.find(params[:id])
     if user.destroy
       render json: user
     else
@@ -47,7 +47,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user)
-    params.permit(:name, :email)
+    params.require(:user).permit(:name, :email)
   end
 end
